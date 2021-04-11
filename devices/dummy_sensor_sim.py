@@ -12,7 +12,7 @@ import dotenv
 # The sample connects to a device-specific MQTT endpoint on your IoT Hub.
 from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
 
-config = dotenv.dotenv_values()
+config = dotenv.dotenv_values('/..')
 
 # The device connection string to authenticate the device with your IoT hub.
 DEVICE_CONNECTION_STRING = config['DEVICE_CONNECTION_STRING']

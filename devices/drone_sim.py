@@ -17,12 +17,12 @@ from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
 # az iot hub device-identity show-connection-string --hub-name {YourIoTHubName} --device-id MyNodeDevice --output table
 config = dotenv.dotenv_values('/..')
 
-CONNECTION_STRING = "HostName=iotmurali.azure-devices.net;DeviceId=MyPythonDevice;SharedAccessKey=SRkGIQt0vekX9qncWFCaiSHOwwJkRkGMavw94BWMDnQ="
+CONNECTION_STRING = config['DEVICE_CONNECTION_STRING']
 
 # Define the JSON message to send to IoT Hub.
 TEMPERATURE = 20.0
 HUMIDITY = 60
-MSG_TXT = '{{"temperature": {temperature},"humidity": {humidity}}}'
+MSG_TXT = '[{"temperature": {temperature}},{"humidity": {humidity}}]'
 
 INTERVAL = 1
 

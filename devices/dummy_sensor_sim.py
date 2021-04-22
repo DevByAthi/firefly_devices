@@ -28,6 +28,17 @@ MSG_TXT = '{{"type": "Feature", "geometry" : {{"type" : "Point", "coordinates" :
 
 
 def generate_message_text(lat, long, device_type, temp, hum, co, pm):
+    """
+    Generates message string by creating a temporary dictionary object and substituting given values in
+    :param lat:
+    :param long:
+    :param device_type:
+    :param temp:
+    :param hum:
+    :param co:
+    :param pm:
+    :return:
+    """
     d = {
         "type": "Feature",
         "geometry": {
@@ -71,12 +82,13 @@ def iothub_client_telemetry_sample_run():
         while True:
             # Build the message with simulated telemetry values.
             device_type = 'actuator'
-            coordinates = [28.5, -34.7]
+            lat, long = 28.5, -34.7
             temperature = TEMPERATURE + (random.random() * 15)
             humidity = HUMIDITY + (random.random() * 20)
             carbon_monoxide = CARBON_MONOXIDE + ((random.random() - 0.5) * 10)
-            msg_txt_formatted = MSG_TXT.format(device_type=device_type, temperature=temperature, humidity=humidity,
-                                               carbon_monoxide=carbon_monoxide, coords=coordinates)
+            particulates = (random.random() * 10)
+
+            msg_txt_formatted = generate_message_text(lat, long, device_type, temperature, humidity, carbon_monoxide, particulates)
             message = Message(msg_txt_formatted)
 
             # Add a custom application property to the message.

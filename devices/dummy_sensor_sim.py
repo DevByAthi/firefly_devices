@@ -10,7 +10,9 @@ import dotenv
 # Using the Python Device SDK for IoT Hub:
 #   https://github.com/Azure/azure-iot-sdk-python
 # The sample connects to a device-specific MQTT endpoint on your IoT Hub.
-from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
+from azure.iot.device import IoTHubDeviceClient, Message
+
+from util.mocking_util import generate_sensor_message_text
 
 config = dotenv.dotenv_values()
 
@@ -27,47 +29,6 @@ MSG_TXT = '{{"type": "Feature", "geometry" : {{"type" : "Point", "coordinates" :
 # MSG_TXT = '{{"temperature" : {{"value" : "{temperature}", "unit" : "celcius"}}, "humidity" : {{"value" : "{humidity}", "unit" : "celcius"}}, "CO" : {{"value" : "{carbon_monoxide}", "unit" : "celcius"}}}}'
 
 
-def generate_message_text(lat, long, device_type, temp, hum, co, pm):
-    """
-    Generates message string by creating a temporary dictionary object and substituting given values in
-    :param lat:
-    :param long:
-    :param device_type:
-    :param temp:
-    :param hum:
-    :param co:
-    :param pm:
-    :return:
-    """
-    d = {
-        "type": "Feature",
-        "geometry": {
-            "type": "Point",
-            "coordinates": [lat, long]
-        },
-        "properties": {
-            "device_type": device_type,
-            "temperature": {
-                "value": temp,
-                "unit": "celcius"
-            },
-            "humidity": {
-                "value": hum,
-                "unit": "%"
-            },
-            "carbon_monoxide": {
-                "value": co,
-                "unit": "ppm"
-            },
-            "pm2_5": {
-                "value": pm,
-                "unit": "ppm"
-            }
-        }
-    }
-    return str(d).replace("'", '"')
-
-
 def iothub_client_init():
     # Create an IoT Hub client
     client = IoTHubDeviceClient.create_from_connection_string(DEVICE_CONNECTION_STRING)
@@ -81,14 +42,14 @@ def iothub_client_telemetry_sample_run():
 
         while True:
             # Build the message with simulated telemetry values.
-            device_type = 'actuator'
+            device_type = 'sensor'
             lat, long = 28.5, -34.7
             temperature = TEMPERATURE + (random.random() * 15)
             humidity = HUMIDITY + (random.random() * 20)
             carbon_monoxide = CARBON_MONOXIDE + ((random.random() - 0.5) * 10)
             particulates = (random.random() * 10)
 
-            msg_txt_formatted = generate_message_text(lat, long, device_type, temperature, humidity, carbon_monoxide, particulates)
+            msg_txt_formatted = generate_sensor_message_text(lat, long, device_type, temperature, humidity, carbon_monoxide, particulates)
             message = Message(msg_txt_formatted)
 
             # Add a custom application property to the message.

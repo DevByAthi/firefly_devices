@@ -2,7 +2,7 @@
 
 # Copyright (c) Microsoft. All rights reserved.
 # Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
+import math
 import random
 import time
 import dotenv
@@ -13,6 +13,12 @@ import dotenv
 from azure.iot.device import IoTHubDeviceClient, Message
 
 from util.mocking_util import generate_sensor_message_text
+
+SECOND = 1.0 / 3600
+
+# NOTE: These were the coordinates of the 2018 "Camp Fire" in California
+LAT = 39.8102778
+LONG = -121.437222
 
 config = dotenv.dotenv_values()
 
@@ -42,7 +48,14 @@ def iothub_client_telemetry_sample_run():
 
         while True:
             # Build the message with simulated telemetry values.
-            lat, long = 28.5, -34.7
+            lat = LAT + ((random.random() - 0.5) * SECOND/4.0)
+
+            # This expression determines the distance travelled east or west, in feet, that correspond to a 1 degree
+            # change in longitude at the given latitude
+            long_dist_change_wrt_lat = 111.320 * 3280.8399 * math.cos(lat)
+
+            long = LONG + ((random.random() - 0.5) * 100.0/long_dist_change_wrt_lat)
+
             temperature = TEMPERATURE + (random.random() * 15)
             humidity = HUMIDITY + (random.random() * 20)
             carbon_monoxide = CARBON_MONOXIDE + ((random.random() - 0.5) * 10)

@@ -25,15 +25,15 @@ def generate_actuator_message_text(lat: float, long: float, acc: Tuple[float, fl
         "properties": {
             "device_type": 'actuator',
             "temperature": {
-                "value": temp,
+                "val": temp,
                 "unit": "celcius"
             },
             "baro": {
-                "value": baro,
+                "val": baro,
                 "unit": "mBar"
             },
             "altitude": {
-                "value": altitude,
+                "val": altitude,
                 "unit": "m"
             },
             "acc": {
@@ -76,19 +76,19 @@ def generate_sensor_message_text(lat, long, temp, hum, co, pm):
         "properties": {
             "device_type": 'sensor',
             "temperature": {
-                "value": temp,
+                "val": temp,
                 "unit": "celcius"
             },
             "humidity": {
-                "value": hum,
+                "val": hum,
                 "unit": "%"
             },
             "carbon_monoxide": {
-                "value": co,
+                "val": co,
                 "unit": "ppm"
             },
             "pm2_5": {
-                "value": pm,
+                "val": pm,
                 "unit": "ppm"
             }
         }

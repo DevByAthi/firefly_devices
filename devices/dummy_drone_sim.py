@@ -11,6 +11,7 @@ import dotenv
 # Using the Python Device SDK for IoT Hub:
 #   https://github.com/Azure/azure-iot-sdk-python
 # The sample connects to a device-specific MQTT endpoint on your IoT Hub.
+import geojson
 from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
 
 from util.mocking_util import generate_actuator_message_text
@@ -47,14 +48,6 @@ def device_method_listener(device_client):
             response_payload = {"Response" : "Successfully Received Coordinates. ACK"}
             response_status = 200
             STATUS = Status.FLYING
-            # try:
-            #     INTERVAL = int(method_request.payload)
-            # except ValueError:
-            #     response_payload = {"Response": "Invalid parameter"}
-            #     response_status = 400
-            # else:
-            #     response_payload = {"Response": "Executed direct method {}".format(method_request.name)}
-            #     response_status = 200
         else:
             response_payload = {"Response": "Direct method {} not defined".format(method_request.name)}
             response_status = 404

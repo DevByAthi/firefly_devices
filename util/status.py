@@ -1,3 +1,10 @@
+"""
+Status enumeration, convenience utility
+
+by Athreya Murali
+"""
+
+
 from enum import Enum
 
 

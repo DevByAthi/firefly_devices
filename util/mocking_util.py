@@ -1,3 +1,10 @@
+"""
+Mocking utilities for generating fake GeoJSON payloads
+
+by Athreya Murali
+"""
+
+
 from typing import Tuple
 
 

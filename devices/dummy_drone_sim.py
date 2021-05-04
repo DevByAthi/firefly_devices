@@ -1,4 +1,13 @@
-# COPIED FROM https://github.com/Azure-Samples/azure-iot-samples-python/blob/master/iot-hub/Quickstarts/simulated-device/SimulatedDevice.py
+"""
+
+This program simulates sensor readings being sent to the IoT Hub. Must have an Azure subscription with an IoT Hub instance defined.
+
+NOTE: This draws heavily from https://github.com/Azure-Samples/azure-iot-samples-python/blob/master/iot-hub/Quickstarts/simulated-device/SimulatedDevice.py
+
+by Athreya Murali
+"""
+
+# COPIED FROM
 
 # Copyright (c) Microsoft. All rights reserved.
 # Licensed under the MIT license. See LICENSE file in the project root for full license information.

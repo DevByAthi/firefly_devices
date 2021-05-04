@@ -1,4 +1,12 @@
-# COPIED FROM https://github.com/Azure-Samples/azure-iot-samples-python/blob/master/iot-hub/Quickstarts/simulated-device/SimulatedDevice.py
+"""
+
+This program simulates sensor readings being sent to the IoT Hub. Must have an Azure subscription with an IoT Hub instance defined.
+
+NOTE: This draws heavily from https://github.com/Azure-Samples/azure-iot-samples-python/blob/master/iot-hub/Quickstarts/simulated-device/SimulatedDevice.py
+
+by Athreya Murali
+
+"""
 
 # Copyright (c) Microsoft. All rights reserved.
 # Licensed under the MIT license. See LICENSE file in the project root for full license information.
@@ -32,16 +40,18 @@ CARBON_MONOXIDE = 10
 MSG_TXT = '{{"type": "Feature", "geometry" : {{"type" : "Point", "coordinates" : {coords}}}, "properties" : {{ "device_type" : "{device_type}", "temperature" : {{"value" : "{temperature}", "unit" : "celcius"}}, "humidity" : {{"value" : "{humidity}", "unit" : "celcius"}}, "CO" : {{"value" : "{carbon_monoxide}", "unit" : "ppm"}}}}}}'
 
 
-# MSG_TXT = '{{"temperature" : {{"value" : "{temperature}", "unit" : "celcius"}}, "humidity" : {{"value" : "{humidity}", "unit" : "celcius"}}, "CO" : {{"value" : "{carbon_monoxide}", "unit" : "celcius"}}}}'
-
-
 def iothub_client_init():
-    # Create an IoT Hub client
+    """
+    Create and return an IoT Hub client
+    """
     client = IoTHubDeviceClient.create_from_connection_string(DEVICE_CONNECTION_STRING)
     return client
 
 
 def iothub_client_telemetry_sample_run():
+    """
+
+    """
     try:
         client = iothub_client_init()
         print("IoT Hub device sending periodic messages, press Ctrl-C to exit")
